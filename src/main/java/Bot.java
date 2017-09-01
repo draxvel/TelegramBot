@@ -42,31 +42,24 @@ public class Bot extends TelegramLongPollingBot {
 
         if(message !=null && message.hasText())
         {
-                switch (message.getText()) {
-                    case "/start":
-                    case "hi":
-                    case "Привіт":
-                        sendMsg(message, "Привіт, " + message.getFrom().getFirstName()+ ". Спитай мене щось.", userMarkup);
-                        break;
-                    case "bye":
-                        sendMsg(message, "Папа, " + message.getFrom().getFirstName() + ". Я сумуватиму :(", userMarkup);
-                        break;
-                    default:
-                    {
-                        if (!message.getText().substring(message.getText().length() - 1).equals("?"))
-                        {
-                            sendMsg(message, "Запитання задано не коректно. Спробуй ще раз.",userMarkup );
-                        }
-                        else
-                        {
-                            Random randomGenerator = new Random();
-                            int index = randomGenerator.nextInt(20);
-                            sendMsg(message, answers[index], userMarkup);
-                            break;
-                        }
-                    }
+            if(message.getText().toString().equals("hi") || message.getText().toString().equals("/start"))
+                 sendMsg(message, "Привіт, " + message.getFrom().getFirstName()+ ". Спитай мене щось.", userMarkup);
+
+            else if(message.getText().toString().equals("bye"))
+                 sendMsg(message, "Папа, " + message.getFrom().getFirstName() + ". Я сумуватиму :(", userMarkup);
+            else {
+                if (!message.getText().substring(message.getText().length() - 1).equals("?"))
+                {
+                    sendMsg(message, "Запитання задано не коректно. Спробуй ще раз.",userMarkup );
                 }
+                else
+                {
+                    Random randomGenerator = new Random();
+                    int index = randomGenerator.nextInt(20);
+                    sendMsg(message, answers[index], userMarkup);
+                 }
             }
+        }
     }
 
     private void sendMsg(Message message, String s, ReplyKeyboardMarkup replyKeyboardMarkup) {
